@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useState } from "react";
-
 import BeatLoader from "react-spinners/BeatLoader";
 import {
   Box,
@@ -11,18 +10,24 @@ import {
   Typography,
 } from "@mui/material";
 import UserCard from "../../components/user-card";
+import AdduserModal from "../../components/adduser-modal";
 
+// CSS override for loader
 const override = {
   display: "flex",
   margin: "0 auto",
   marginTop: 150,
 };
 
+// UserList component
 export default function UserList() {
+  // State variables
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState("");
   const [searchUser, setSearchUser] = useState("");
+  const [open, setOpen] = React.useState(false);
 
+  // Fetch users data
   useEffect(() => {
     const usersData = async () => {
       setLoading(true);
@@ -33,14 +38,23 @@ export default function UserList() {
         setLoading(false);
       }, 2000);
     };
-    usersData();
+    usersData(); // Call fetchUsersData function
   }, []);
 
   console.log(users);
 
+  // Function to handle modal open
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  // Render UserList component
   return (
     <Container>
-      <Typography>User Information</Typography>
+      <Typography>User List Information</Typography>
 
       <Grid
         container
@@ -67,16 +81,26 @@ export default function UserList() {
               value={searchUser}
               onChange={(e) => setSearchUser(e.target.value)}
             />
-            {/* <Button variant="contained" color="primary">
-              Search
-            </Button> */}
           </Box>
         </Grid>
         <Grid item xs={6} md={3}>
           <Box>
-            <Button variant="contained" color="primary" fullWidth size="large">
+            <Button
+              variant="contained"
+              color="primary"
+              fullWidth
+              size="large"
+              onClick={handleClickOpen}
+            >
               Add a User
             </Button>
+            {/* Open modal on button click */}
+            <AdduserModal
+              open={open}
+              setOpen={setOpen}
+              handleClose={handleClose}
+            />
+            {/* Close modal callback */}
           </Box>
         </Grid>
       </Grid>
@@ -95,7 +119,11 @@ export default function UserList() {
                       .includes(searchUser.toLowerCase()) ||
                     user.email.toLowerCase().includes(searchUser.toLowerCase());
             })
+
             .map((user) => {
+              {
+                /* Map through users array and display UserCard component */
+              }
               return (
                 <Grid item xs={12} sm={6} md={4} key={user.id}>
                   <UserCard user={user} />
