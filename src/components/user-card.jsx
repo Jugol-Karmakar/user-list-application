@@ -9,7 +9,7 @@ export default function UserCard({ user }) {
     // Card component to display user information
     <Card sx={{ height: "100%" }}>
       <CardMedia
-        sx={{ height: 300, objectFit: "cover" }}
+        sx={{ height: 300, objectFit: "cover", padding: "10px" }}
         image={user.image}
         title="User Image"
       />
@@ -17,11 +17,18 @@ export default function UserCard({ user }) {
       {/* CardContent to display user details */}
       <CardContent>
         {/* Link to user details page */}
-        <Link href={`/user-list/${user.firstName}+${user.lastName}`}>
+        <Link
+          style={{
+            fontSize: "20px",
+            textDecoration: "none",
+            fontFamily: "sans-serif",
+          }}
+          href={`/user-list/${user.firstName}+${user.lastName}`}
+        >
           Name: {user.firstName} {user.lastName}
         </Link>
 
-        <Typography>Email : {user.email}</Typography>
+        <Typography sx={{ marginTop: "10px" }}>Email : {user.email}</Typography>
         <Typography>
           Address : {user.address.address} ({user.address.city},
           {user.address.state})
