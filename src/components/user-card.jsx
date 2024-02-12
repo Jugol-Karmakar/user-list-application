@@ -1,25 +1,18 @@
-import {
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Typography,
-} from "@mui/material";
+"use client";
+import { Card, CardContent, CardMedia, Typography } from "@mui/material";
 import Link from "next/link";
 import React from "react";
 
 export default function UserCard({ user }) {
-  console.log(user);
   return (
     <Card sx={{ height: "100%" }}>
       <CardMedia
         sx={{ height: 300, objectFit: "cover" }}
         image={user.image}
-        title="green iguana"
+        title="User Image"
       />
       <CardContent>
-        <Link href="/UserDetails">
+        <Link href={`/user-list/${user.firstName}+${user.lastName}`}>
           Name: {user.firstName} {user.lastName}
         </Link>
 
